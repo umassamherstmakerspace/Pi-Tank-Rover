@@ -156,15 +156,20 @@ def pivotRight():
 
 pos = 60
 pos2 = 50
+count = 0
 def processData(data):
+    global count
     global pos
     global pos2
+    count+=1
     pos += data[controls.buttonOffset+controls.rightYAxis]
-    if (pos > 100):
-        pos = 100
-    elif (pos < 0):
-        pos = 0
-    pwm_servoCam.ChangeDutyCycle(2.5 + 10 * pos/180)	
+    if (pos > 99.9):
+        pos = 99.9
+    elif (pos < .1):
+        pos = .1
+    
+    if count % 50 == 0:
+        pwm_servoCam.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
     pos2 += 40 * data[controls.buttonOffset+controls.rightXAxis]
     pwm_servoMount.ChangeDutyCycle(2.5 + 10 * pos2/180)	
