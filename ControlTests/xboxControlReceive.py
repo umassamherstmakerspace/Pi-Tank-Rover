@@ -52,6 +52,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 ServoPin = 23
+global pos
 pos = 60
 
 ####################################################################
