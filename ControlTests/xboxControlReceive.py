@@ -51,6 +51,8 @@ GPIO.setmode(GPIO.BCM)
 #Ignore warning information
 GPIO.setwarnings(False)
 
+fullSpeed = False
+
 ####################################################################
 ####################################################################
 ####################################################################
@@ -79,8 +81,12 @@ def run(delaytime, speed):
     GPIO.output(IN2, GPIO.HIGH)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.HIGH)
-    pwm_ENA.ChangeDutyCycle(max_speed*speed)
-    pwm_ENB.ChangeDutyCycle(max_speed*speed)
+    if fullSpeed:
+        pwm_ENA.ChangeDutyCycle(max_speed)
+        pwm_ENB.ChangeDutyCycle(max_speed)
+    else:
+        pwm_ENA.ChangeDutyCycle(max_speed*speed)
+        pwm_ENB.ChangeDutyCycle(max_speed*speed)
 
 def runLeft(delaytime, speed, dir):
     d = math.fabs(dir)
@@ -144,6 +150,11 @@ def pivotRight():
 
 
 def processData(data):
+
+    if (data[controls.a] == 1):
+        fullSpeed = True 
+    else:
+        fullSpeed = False
 
     if (data[controls.left] == 1):
         pivotLeft()
