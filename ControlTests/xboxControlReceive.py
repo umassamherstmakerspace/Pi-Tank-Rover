@@ -169,11 +169,9 @@ def processData(data):
         pos = .1
     
     print(2.5 + 10 * pos/180)
-    if count % 50 == 0:
+    if count % 500 == 0:
         pwm_servoCam.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
-    pos2 += 40 * data[controls.buttonOffset+controls.rightXAxis]
-    pwm_servoMount.ChangeDutyCycle(2.5 + 10 * pos2/180)	
 
 
     if (data[controls.left] == 1):
