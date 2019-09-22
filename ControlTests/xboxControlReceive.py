@@ -6,6 +6,7 @@ import argparse
 import time
 import RPi.GPIO as GPIO
 import sys
+import math
 
 p = argparse.ArgumentParser(description='Process some integers.')
 p.add_argument("-v","--verbose", help="increase output verbosity",
@@ -81,6 +82,24 @@ def run(delaytime, speed):
     pwm_ENA.ChangeDutyCycle(max_speed*speed)
     pwm_ENB.ChangeDutyCycle(max_speed*speed)
 
+def runLeft(delaytime, speed, dir):
+    d = math.abs(dir)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+    pwm_ENA.ChangeDutyCycle(max_speed*speed)
+    pwm_ENB.ChangeDutyCycle(max_speed*speed * (1-d))
+
+def runRight(delaytime, speed, dir):
+    d = math.abs(dir)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+    pwm_ENA.ChangeDutyCycle(max_speed*speed * (1-d))
+    pwm_ENB.ChangeDutyCycle(max_speed*speed)
+
 def backward(delaytime, speed):
     GPIO.output(IN1, GPIO.HIGH)
     GPIO.output(IN2, GPIO.LOW)
@@ -89,13 +108,40 @@ def backward(delaytime, speed):
     pwm_ENA.ChangeDutyCycle(-1 * max_speed*speed)
     pwm_ENB.ChangeDutyCycle(-1 * max_speed*speed)
 
+def backwardLeft(delaytime, speed,dir):
+    d = math.abs(dir)
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(-1 * max_speed*speed * (1-d))
+    pwm_ENB.ChangeDutyCycle(-1 * max_speed*speed)
+
+def backwardRight(delaytime, speed, dir):
+    d = math.abs(dir)
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(-1 * max_speed*speed)
+    pwm_ENB.ChangeDutyCycle(-1 * max_speed*speed * (1-d))
+
 
 def processData(data):
     forwardSpeed = -1 * data[controls.buttonOffset+controls.leftYAxis]
-    if forwardSpeed > 0:
+    horizontalSpeed = -1 * data[controls.buttonOffset+controls.leftXAxis]
+    if forwardSpeed > 0 and math.abs(horizontalSpeed) < .1:
         run(1, forwardSpeed)
-    elif forwardSpeed < 0:
+    elif forwardSpeed > 0 and horizontalSpeed > 0:
+        runRight(1, forwardSpeed, horizontalSpeed)
+    elif forwardSpeed > 0 and horizontalSpeed < 0:
+        runLeft(1, forwardSpeed, horizontalSpeed)
+    elif forwardSpeed < 0 and  math.abs(horizontalSpeed) < .1:
         backward(1, forwardSpeed)
+    elif forwardSpeed < 0 and horizontalSpeed > 0:
+        backwardRight(1, forwardSpeed, horizontalSpeed)
+    elif forwardSpeed < 0 and horizontalSpeed < 0:
+        backwardLeft(1, forwardSpeed, horizontalSpeed)
     else:
         run(1, forwardSpeed)
     
