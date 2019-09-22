@@ -81,10 +81,23 @@ def run(delaytime, speed):
     pwm_ENA.ChangeDutyCycle(max_speed*speed)
     pwm_ENB.ChangeDutyCycle(max_speed*speed)
 
+def backward(delaytime, speed):
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(max_speed*speed)
+    pwm_ENB.ChangeDutyCycle(max_speed*speed)
+
 
 def processData(data):
     forwardSpeed = -1 * data[controls.buttonOffset+controls.leftYAxis]
-    run(1, forwardSpeed)
+    if forwardSpeed > 0:
+        run(1, forwardSpeed)
+    elif forwardSpeed < 0:
+        backward(1, forwardSpeed)
+    else:
+        pass
     
 
 ####################################################################
