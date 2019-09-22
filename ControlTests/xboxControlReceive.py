@@ -1,3 +1,6 @@
+# coding: utf-8
+
+
 import os
 from socket import *
 from controls import *
