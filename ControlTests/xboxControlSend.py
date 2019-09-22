@@ -81,7 +81,7 @@ while 1:
         s += str(i) + ","
     for i in triggers_packet:
         s += str(i) + ","
-    
+    print(s)
     s = s[:-1]
     log.info("[     MISSION SEND    ]: " + s)
     s = s.encode()
