@@ -151,8 +151,8 @@ def pivotRight():
 
 def processData(data):
 
-    pos = 90 * data[controls.rightXAxis] + 180
-    
+    #pos = 90 * data[controls.rightXAxis] + 180
+    pos = 90
     for i in range(18):
         pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
