@@ -19,7 +19,7 @@ class Controller:
         self.start =    4
         self.select =   5
 
-	self.buttonOffset = 15
+	    self.buttonOffset = 15
         self.leftTrigger = 0
         self.rightTrigger = 1
         self.leftXAxis = 2
