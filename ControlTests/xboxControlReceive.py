@@ -154,6 +154,7 @@ def processData(data):
     pos = 60
 
     pos += 30 * data[controls.rightYAxis]
+    print(pos)
     for i in range(1):
         pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
@@ -198,7 +199,7 @@ while 1:
 
     data = list(data.split(","))
     data = [float(i) for i in data]
-    print(data)
+    # print(data)
     processData(data)
     if data[controls.select] == 1:
         UDPSock.close()
