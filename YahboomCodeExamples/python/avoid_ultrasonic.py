@@ -29,10 +29,10 @@ GPIO.setwarnings(False)
 def init():
     global pwm_ENA
     global pwm_ENB
-    GPIO.setup(ENA,GPIO.OUT,initial=GPIO.HIGH)
+    GPIO.setup(ENA,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN1,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN2,GPIO.OUT,initial=GPIO.LOW)
-    GPIO.setup(ENB,GPIO.OUT,initial=GPIO.HIGH)
+    GPIO.setup(ENB,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN3,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN4,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(key,GPIO.IN)
