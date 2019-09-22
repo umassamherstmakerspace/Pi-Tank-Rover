@@ -63,6 +63,8 @@ def motor_init():
     global pwm_ENB
     global pwm_servo
     global delaytime
+    global pos
+    pos = 60
     GPIO.setup(ENA,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN1,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN2,GPIO.OUT,initial=GPIO.LOW)
@@ -150,7 +152,7 @@ def pivotRight():
 
 
 
-pos = 60
+
 def processData(data):
 
     oldpos = pos
