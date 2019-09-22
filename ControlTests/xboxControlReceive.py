@@ -51,6 +51,7 @@ GPIO.setmode(GPIO.BCM)
 #Ignore warning information
 GPIO.setwarnings(False)
 
+ServoPin = 23
 
 ####################################################################
 ####################################################################
@@ -60,6 +61,7 @@ GPIO.setwarnings(False)
 def motor_init():
     global pwm_ENA
     global pwm_ENB
+    global pwm_servo
     global delaytime
     GPIO.setup(ENA,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN1,GPIO.OUT,initial=GPIO.LOW)
@@ -72,6 +74,8 @@ def motor_init():
     pwm_ENB = GPIO.PWM(ENB, 2000)
     pwm_ENA.start(0)
     pwm_ENB.start(0)
+    pwm_servo = GPIO.PWM(ServoPin, 50)
+    pwm_servo.start(0)
 
 max_speed = 100
 
@@ -146,6 +150,11 @@ def pivotRight():
 
 def processData(data):
 
+
+    for i in range(18):
+        pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
+
+        
     if (data[controls.left] == 1):
         pivotLeft()
         return
