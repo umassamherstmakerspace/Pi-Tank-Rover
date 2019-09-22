@@ -169,7 +169,7 @@ def processData(data):
         pos = .1
     
     print(2.5 + 10 * pos/180)
-    if count % 500 == 0 and math.fabs(2.5 + 10 * pos/180 - curPos) > 0.3:
+    if count % 500 == 0 and math.fabs(2.5 + 10 * pos/180 - curPos) > 0.1:
         pwm_servoCam.ChangeDutyCycle(2.5 + 10 * pos/180)
         curPos = 2.5 + 10 * pos/180
 
