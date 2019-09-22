@@ -94,8 +94,12 @@ def runLeft(delaytime, speed, dir):
     GPIO.output(IN2, GPIO.HIGH)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.HIGH)
-    pwm_ENA.ChangeDutyCycle(max_speed*speed)
-    pwm_ENB.ChangeDutyCycle(max_speed*speed * (1-d))
+    if fullSpeed:
+        pwm_ENA.ChangeDutyCycle(max_speed)
+        pwm_ENB.ChangeDutyCycle(max_speed* (1-d))
+    else:
+        pwm_ENA.ChangeDutyCycle(max_speed*speed)
+        pwm_ENB.ChangeDutyCycle(max_speed*speed * (1-d))
 
 def runRight(delaytime, speed, dir):
     d = math.fabs(dir)
@@ -103,9 +107,13 @@ def runRight(delaytime, speed, dir):
     GPIO.output(IN2, GPIO.HIGH)
     GPIO.output(IN3, GPIO.LOW)
     GPIO.output(IN4, GPIO.HIGH)
-    pwm_ENA.ChangeDutyCycle(max_speed*speed * (1-d))
-    pwm_ENB.ChangeDutyCycle(max_speed*speed)
-
+    if fullSpeed:
+        pwm_ENA.ChangeDutyCycle(max_speed* (1-d))
+        pwm_ENB.ChangeDutyCycle(max_speed)
+    else:
+        pwm_ENA.ChangeDutyCycle(max_speed*speed* (1-d))
+        pwm_ENB.ChangeDutyCycle(max_speed*speed)
+        
 def backward(delaytime, speed):
     GPIO.output(IN1, GPIO.HIGH)
     GPIO.output(IN2, GPIO.LOW)
