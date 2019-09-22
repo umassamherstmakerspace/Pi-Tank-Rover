@@ -1,6 +1,3 @@
-# coding: utf-8
-
-
 import os
 from socket import *
 from controls import *
@@ -83,11 +80,10 @@ def run(delaytime, speed):
     GPIO.output(IN4, GPIO.HIGH)
     pwm_ENA.ChangeDutyCycle(max_speed*speed)
     pwm_ENB.ChangeDutyCycle(max_speed*speed)
-    time.sleep(delaytime)
 
 
 def processData(data):
-    forwardSpeed = -1 * data[controls.leftYAxis]
+    forwardSpeed = -1 * data[controls.buttonOffset+controls.leftYAxis]
     run(1, forwardSpeed)
     
 
@@ -102,11 +98,11 @@ motor_init()
 log.info("Waiting to receive messages...")
 while 1:
     (data, addr) = UDPSock.recvfrom(buf)
-    log.info("Received message: " + data)
+    log.info(data)
 
     data = list(data.split(","))
     data = [float(i) for i in data]
-
+    print(data)
     processData(data)
     if data[controls.select] == 1:
         UDPSock.close()
