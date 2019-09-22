@@ -52,7 +52,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 ServoPinCam = 23
-ServoPinMount = 22
+ServoPinMount = 24
 ####################################################################
 ####################################################################
 ####################################################################
@@ -154,8 +154,8 @@ def pivotRight():
 
 
 
-pos = 70
-pos2 = 0
+pos = 60
+pos2 = 50
 def processData(data):
     global pos
     global pos2
