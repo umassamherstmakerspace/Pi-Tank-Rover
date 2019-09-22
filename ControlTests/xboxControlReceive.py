@@ -2,6 +2,7 @@ import os
 from socket import *
 from controls import *
 import logging as log
+import argparse
 
 p = argparse.ArgumentParser(description='Process some integers.')
 p.add_argument("-v","--verbose", help="increase output verbosity",
@@ -43,7 +44,7 @@ while 1:
     data = [float(i) for i in data]
 
     print(data)
-    if buttons_packet[controls.select] == 1:
+    if data[controls.select] == 1:
         UDPSock.close()
         log.warning("[    MISSION STATUS     ]: System exit")
         raise SystemExit
