@@ -63,7 +63,6 @@ def motor_init():
     global pwm_ENB
     global pwm_servo
     global delaytime
-    global pos
     pos = 60
     GPIO.setup(ENA,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN1,GPIO.OUT,initial=GPIO.LOW)
@@ -155,10 +154,8 @@ def pivotRight():
 
 def processData(data):
 
-    oldpos = pos
     pos += 40 * data[controls.buttonOffset+controls.rightYAxis]
-    if math.fabs(oldpos - pos) > 10:
-        pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
+    pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
 
     if (data[controls.left] == 1):
