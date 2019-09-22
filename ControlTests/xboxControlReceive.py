@@ -159,7 +159,8 @@ pos2 = 50
 def processData(data):
     global pos
     global pos2
-    pos += 40 * data[controls.buttonOffset+controls.rightYAxis]
+    pos += 30 * data[controls.buttonOffset+controls.rightYAxis]
+    print (2.5 + 10 * pos/180)
     pwm_servoCam.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
     pos2 += 40 * data[controls.buttonOffset+controls.rightXAxis]
