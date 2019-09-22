@@ -83,7 +83,7 @@ def run(delaytime, speed):
     pwm_ENB.ChangeDutyCycle(max_speed*speed)
 
 def runLeft(delaytime, speed, dir):
-    d = math.abs(dir)
+    d = math.fabs(dir)
     GPIO.output(IN1, GPIO.LOW)
     GPIO.output(IN2, GPIO.HIGH)
     GPIO.output(IN3, GPIO.LOW)
@@ -92,7 +92,7 @@ def runLeft(delaytime, speed, dir):
     pwm_ENB.ChangeDutyCycle(max_speed*speed * (1-d))
 
 def runRight(delaytime, speed, dir):
-    d = math.abs(dir)
+    d = math.fabs(dir)
     GPIO.output(IN1, GPIO.LOW)
     GPIO.output(IN2, GPIO.HIGH)
     GPIO.output(IN3, GPIO.LOW)
@@ -109,7 +109,7 @@ def backward(delaytime, speed):
     pwm_ENB.ChangeDutyCycle(-1 * max_speed*speed)
 
 def backwardLeft(delaytime, speed,dir):
-    d = math.abs(dir)
+    d = math.fabs(dir)
     GPIO.output(IN1, GPIO.HIGH)
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.HIGH)
@@ -118,7 +118,7 @@ def backwardLeft(delaytime, speed,dir):
     pwm_ENB.ChangeDutyCycle(-1 * max_speed*speed)
 
 def backwardRight(delaytime, speed, dir):
-    d = math.abs(dir)
+    d = math.fabs(dir)
     GPIO.output(IN1, GPIO.HIGH)
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.HIGH)
@@ -130,13 +130,13 @@ def backwardRight(delaytime, speed, dir):
 def processData(data):
     forwardSpeed = -1 * data[controls.buttonOffset+controls.leftYAxis]
     horizontalSpeed = -1 * data[controls.buttonOffset+controls.leftXAxis]
-    if forwardSpeed > 0 and math.abs(horizontalSpeed) < .1:
+    if forwardSpeed > 0 and math.fabs(horizontalSpeed) < .1:
         run(1, forwardSpeed)
     elif forwardSpeed > 0 and horizontalSpeed > 0:
-        runRight(1, forwardSpeed, horizontalSpeed)
-    elif forwardSpeed > 0 and horizontalSpeed < 0:
         runLeft(1, forwardSpeed, horizontalSpeed)
-    elif forwardSpeed < 0 and  math.abs(horizontalSpeed) < .1:
+    elif forwardSpeed > 0 and horizontalSpeed < 0:
+        runRight(1, forwardSpeed, horizontalSpeed)
+    elif forwardSpeed < 0 and  math.fabs(horizontalSpeed) < .1:
         backward(1, forwardSpeed)
     elif forwardSpeed < 0 and horizontalSpeed > 0:
         backwardRight(1, forwardSpeed, horizontalSpeed)
