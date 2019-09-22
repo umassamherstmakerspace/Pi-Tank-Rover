@@ -52,7 +52,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 ServoPinCam = 23
-ServoPinMount = 24
+ServoPinMount = 26
 ####################################################################
 ####################################################################
 ####################################################################
@@ -163,7 +163,7 @@ def processData(data):
     pwm_servoCam.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
     pos2 += 40 * data[controls.buttonOffset+controls.rightXAxis]
-    pwm_servoMount.ChangeDutyCycle(2.5 + 10 * pos/180)	
+    pwm_servoMount.ChangeDutyCycle(2.5 + 10 * pos2/180)	
 
 
     if (data[controls.left] == 1):
