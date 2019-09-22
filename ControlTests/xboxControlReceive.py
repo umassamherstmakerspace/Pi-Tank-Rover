@@ -146,8 +146,6 @@ def pivotRight():
 
 def processData(data):
 
-    if 
-
     if (data[controls.left] == 1):
         pivotLeft()
         return
