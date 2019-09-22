@@ -74,6 +74,7 @@ def motor_init():
     pwm_ENB = GPIO.PWM(ENB, 2000)
     pwm_ENA.start(0)
     pwm_ENB.start(0)
+    GPIO.setup(ServoPin, GPIO.OUT)
     pwm_servo = GPIO.PWM(ServoPin, 50)
     pwm_servo.start(0)
 
@@ -154,7 +155,7 @@ def processData(data):
     for i in range(18):
         pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
-        
+
     if (data[controls.left] == 1):
         pivotLeft()
         return
