@@ -149,13 +149,13 @@ def pivotRight():
     pwm_ENB.ChangeDutyCycle(max_speed)
 
 
+
+pos = 60
 def processData(data):
 
-    pos = 60
-    pos += 30 * data[controls.buttonOffset+controls.rightYAxis]
-
-    print(pos)
-    for i in range(1):
+    oldpos = pos
+    pos += 40 * data[controls.buttonOffset+controls.rightYAxis]
+    if math.fabs(oldpos - pos) > 10:
         pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
 
