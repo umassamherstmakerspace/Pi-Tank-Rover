@@ -52,8 +52,6 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 ServoPin = 23
-global pos
-pos = 60
 
 ####################################################################
 ####################################################################
@@ -154,7 +152,7 @@ def pivotRight():
 
 
 def processData(data):
-
+    pos = 60
     pos += 40 * data[controls.buttonOffset+controls.rightYAxis]
     pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
