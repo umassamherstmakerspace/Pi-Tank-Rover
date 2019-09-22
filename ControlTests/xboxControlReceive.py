@@ -51,8 +51,8 @@ GPIO.setmode(GPIO.BCM)
 #Ignore warning information
 GPIO.setwarnings(False)
 
-ServoPin = 23
-
+ServoPinCam = 23
+ServoPinMount = 22
 ####################################################################
 ####################################################################
 ####################################################################
@@ -61,7 +61,8 @@ ServoPin = 23
 def motor_init():
     global pwm_ENA
     global pwm_ENB
-    global pwm_servo
+    global pwm_servoCam
+    global pwm_servoMount
     global delaytime
     GPIO.setup(ENA,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN1,GPIO.OUT,initial=GPIO.LOW)
@@ -74,9 +75,12 @@ def motor_init():
     pwm_ENB = GPIO.PWM(ENB, 2000)
     pwm_ENA.start(0)
     pwm_ENB.start(0)
-    GPIO.setup(ServoPin, GPIO.OUT)
-    pwm_servo = GPIO.PWM(ServoPin, 50)
-    pwm_servo.start(0)
+    GPIO.setup(ServoPinCam, GPIO.OUT)
+    pwm_servoCam = GPIO.PWM(ServoPinCam, 50)
+    pwm_servoCam.start(0)
+    GPIO.setup(ServoPinMount, GPIO.OUT)
+    pwm_servoMount = GPIO.PWM(ServoPinMount, 50)
+    pwm_servoMount.start(0)
 
 max_speed = 100
 
@@ -150,11 +154,16 @@ def pivotRight():
 
 
 
-
+pos = 70
+pos2 = 0
 def processData(data):
-    pos = 60
+    global pos
+    global pos2
     pos += 40 * data[controls.buttonOffset+controls.rightYAxis]
-    pwm_servo.ChangeDutyCycle(2.5 + 10 * pos/180)	
+    pwm_servoCam.ChangeDutyCycle(2.5 + 10 * pos/180)	
+
+    pos2 += 40 * data[controls.buttonOffset+controls.rightXAxis]
+    pwm_servoMount.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
 
     if (data[controls.left] == 1):
