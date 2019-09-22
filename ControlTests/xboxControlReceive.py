@@ -52,6 +52,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 ServoPin = 23
+pos = 60
 
 ####################################################################
 ####################################################################
@@ -150,7 +151,7 @@ def pivotRight():
 
 
 
-pos = 60
+
 def processData(data):
 
     pos += 40 * data[controls.buttonOffset+controls.rightYAxis]
