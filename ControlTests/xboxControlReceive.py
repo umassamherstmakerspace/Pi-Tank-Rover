@@ -86,8 +86,8 @@ def backward(delaytime, speed):
     GPIO.output(IN2, GPIO.LOW)
     GPIO.output(IN3, GPIO.HIGH)
     GPIO.output(IN4, GPIO.LOW)
-    pwm_ENA.ChangeDutyCycle(max_speed*speed)
-    pwm_ENB.ChangeDutyCycle(max_speed*speed)
+    pwm_ENA.ChangeDutyCycle(-1 * max_speed*speed)
+    pwm_ENB.ChangeDutyCycle(-1 * max_speed*speed)
 
 
 def processData(data):
@@ -97,7 +97,7 @@ def processData(data):
     elif forwardSpeed < 0:
         backward(1, forwardSpeed)
     else:
-        pass
+        run(1, forwardSpeed)
     
 
 ####################################################################
