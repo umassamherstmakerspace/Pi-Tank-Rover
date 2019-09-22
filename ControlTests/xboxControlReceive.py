@@ -162,12 +162,13 @@ def processData(data):
     global pos
     global pos2
     count+=1
-    pos += data[controls.buttonOffset+controls.rightYAxis]
+    pos += .01 * data[controls.buttonOffset+controls.rightYAxis]
     if (pos > 99.9):
         pos = 99.9
     elif (pos < .1):
         pos = .1
     
+    print(2.5 + 10 * pos/180)
     if count % 50 == 0:
         pwm_servoCam.ChangeDutyCycle(2.5 + 10 * pos/180)	
 
