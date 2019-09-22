@@ -126,8 +126,32 @@ def backwardRight(delaytime, speed, dir):
     pwm_ENA.ChangeDutyCycle(-1 * max_speed*speed)
     pwm_ENB.ChangeDutyCycle(-1 * max_speed*speed * (1-d))
 
+def pivotLeft():
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    GPIO.output(IN3, GPIO.HIGH)
+    GPIO.output(IN4, GPIO.LOW)
+    pwm_ENA.ChangeDutyCycle(max_speed)
+    pwm_ENB.ChangeDutyCycle(max_speed) 
+
+def pivotRight():
+    GPIO.output(IN1, GPIO.HIGH)
+    GPIO.output(IN2, GPIO.LOW)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
+    pwm_ENA.ChangeDutyCycle(max_speed)
+    pwm_ENB.ChangeDutyCycle(max_speed)
+
 
 def processData(data):
+
+    if (data[controls.left] == 1):
+        pivotLeft()
+        return
+    if (data[controls.right] == 1):
+        pivotRight()
+        return
+
     forwardSpeed = -1 * data[controls.buttonOffset+controls.leftYAxis]
     horizontalSpeed = -1 * data[controls.buttonOffset+controls.leftXAxis]
     if forwardSpeed > 0 and math.fabs(horizontalSpeed) < .1:
