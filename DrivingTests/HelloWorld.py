@@ -1,8 +1,6 @@
+import time
 import RPi.GPIO as GPIO
-
-ENA = 16
-ENB = 13
-
+import sys
 
 #Definition of  motor pin 
 IN1 = 20
@@ -23,10 +21,10 @@ def motor_init():
     global pwm_ENA
     global pwm_ENB
     global delaytime
-    GPIO.setup(ENA,GPIO.OUT,initial=GPIO.HIGH)
+    GPIO.setup(ENA,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN1,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN2,GPIO.OUT,initial=GPIO.LOW)
-    GPIO.setup(ENB,GPIO.OUT,initial=GPIO.HIGH)
+    GPIO.setup(ENB,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN3,GPIO.OUT,initial=GPIO.LOW)
     GPIO.setup(IN4,GPIO.OUT,initial=GPIO.LOW)
     #Set the PWM pin and frequency is 2000hz
@@ -37,10 +35,10 @@ def motor_init():
 
 #advance
 def run(delaytime):
-    GPIO.output(IN1, GPIO.HIGH)
-    GPIO.output(IN2, GPIO.LOW)
-    GPIO.output(IN3, GPIO.HIGH)
-    GPIO.output(IN4, GPIO.LOW)
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.HIGH)
+    GPIO.output(IN3, GPIO.LOW)
+    GPIO.output(IN4, GPIO.HIGH)
     pwm_ENA.ChangeDutyCycle(50)
     pwm_ENB.ChangeDutyCycle(50)
     time.sleep(delaytime)
